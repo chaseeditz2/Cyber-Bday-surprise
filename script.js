@@ -1,7 +1,3 @@
-/* =========================================================
-CYBERWALL BIRTHDAY ESCAPE ROOM
-========================================================= */
-
 const letters = [
 
 ```
@@ -127,613 +123,208 @@ signoff: "- Peachybabo"
 
 ];
 
-/* =========================================================
-ACT INFORMATION
-========================================================= */
+# /*
 
-const acts = [
+# PUZZLES
+
+*/
+
+const puzzles = [
 
 ```
 {
     title: "The Curtain Rises",
-    description: "The theater has gone dark.",
-    password: "TIME"
+
+    description: `
+        <p>
+            The theater is completely dark.
+        </p>
+
+        <p>
+            An old program has been left on the stage.
+        </p>
+
+        <div class="puzzle-box">
+
+            <p><strong>T</strong>he house lights fade into darkness.</p>
+
+            <p><strong>I</strong>nside the theater, nobody speaks.</p>
+
+            <p><strong>M</strong>ysterious footsteps echo backstage.</p>
+
+            <p><strong>E</strong>very clock has stopped.</p>
+
+        </div>
+
+        <p>
+            Something about these lines seems important.
+        </p>
+
+        <p class="hint-text">
+            Loki's clue:
+            "Sometimes the beginning tells you everything."
+        </p>
+    `,
+
+    answer: "TIME"
 },
+
 
 {
     title: "Storm Warning",
-    description: "A strange storm has appeared on the radar.",
-    password: "RADAR"
+
+    description: `
+        <p>
+            The storm radar is beginning to light up.
+        </p>
+
+        <div class="puzzle-box">
+
+            <p>🟢 = 2</p>
+            <p>🟡 = 7</p>
+            <p>🔴 = 4</p>
+
+            <hr>
+
+            <p>
+                The radar shows:
+            </p>
+
+            <h2>
+                🟡 → 🔴 → 🟢
+            </h2>
+
+            <p>
+                What three-number code does the storm give you?
+            </p>
+
+        </div>
+
+        <p class="hint-text">
+            Hint: Follow the storm symbols from left to right.
+        </p>
+    `,
+
+    answer: "742"
 },
+
 
 {
     title: "Intercepted Transmission",
-    description: "Someone is broadcasting from inside the storm.",
-    password: "RADIO"
+
+    description: `
+        <p>
+            A radio transmission has been intercepted.
+        </p>
+
+        <div class="puzzle-box">
+
+            <p>
+                📻 "Rotation confirmed."
+            </p>
+
+            <p>
+                📻 "Storm strengthening."
+            </p>
+
+            <p>
+                📻 "Transmission continuing."
+            </p>
+
+            <p>
+                📻 "Radio contact required."
+            </p>
+
+            <hr>
+
+            <p>
+                What device is carrying this transmission?
+            </p>
+
+        </div>
+    `,
+
+    answer: "RADIO"
 },
+
 
 {
     title: "Loki's Trick",
-    description: "A familiar green signature has appeared.",
-    password: "LOKI"
+
+    description: `
+        <p>
+            A green message appears across the screen.
+        </p>
+
+        <div class="puzzle-box">
+
+            <p>
+                I am a trickster.
+            </p>
+
+            <p>
+                I am from Asgard.
+            </p>
+
+            <p>
+                I have horns in many stories.
+            </p>
+
+            <p>
+                Who am I?
+            </p>
+
+        </div>
+    `,
+
+    answer: "LOKI"
 },
+
 
 {
     title: "Lightning Strike",
-    description: "Something just flashed across the sky.",
-    password: "LIGHTNING"
+
+    description: `
+        <p>
+            The storm flashes.
+        </p>
+
+        <div class="puzzle-box">
+
+            <p>
+                ⚡ It appears before the thunder.
+            </p>
+
+            <p>
+                ⚡ It can illuminate the entire sky.
+            </p>
+
+            <p>
+                ⚡ Storm chasers watch for it.
+            </p>
+
+            <p>
+                What is it?
+            </p>
+
+        </div>
+    `,
+
+    answer: "LIGHTNING"
 },
+
 
 {
     title: "Backstage",
-    description: "Something is hiding behind the curtain.",
-    password: "BACKSTAGE"
-},
 
-{
-    title: "Timeline Fracture",
-    description: "Reality is beginning to split.",
-    password: "VARIANT"
-},
-
-{
-    title: "Into the Storm",
-    description: "The eye of the storm is approaching.",
-    password: "STORM"
-},
-
-{
-    title: "The Missing Scene",
-    description: "A page has been removed from the script.",
-    password: "SCRIPT"
-},
-
-{
-    title: "Variant Detected",
-    description: "There may be more than one Loki.",
-    password: "GREEN"
-},
-
-{
-    title: "Eye of the Storm",
-    description: "Everything has suddenly gone quiet.",
-    password: "EYE"
-},
-
-{
-    title: "Final Warning",
-    description: "The storm is reaching maximum intensity.",
-    password: "WARNING"
-},
-
-{
-    title: "The Last Act",
-    description: "The theater lights are beginning to fade.",
-    password: "ACT13"
-},
-
-{
-    title: "The Timeline Collapses",
-    description: "One final lock stands between you and the ending.",
-    password: "TIMELINE"
-},
-
-{
-    title: "Cyberwall's Birthday",
-    description: "The final message is waiting.",
-    password: "CYBERWALL"
-}
-```
-
-];
-
-/* =========================================================
-PROGRESS
-========================================================= */
-
-let unlocked = JSON.parse(
-localStorage.getItem("cyberwallProgress") || "[]"
-);
-
-/* =========================================================
-BUILD ACTS
-========================================================= */
-
-function buildActs() {
-
-```
-const grid =
-    document.getElementById("actGrid");
-
-grid.innerHTML = "";
-
-
-acts.forEach((act, index) => {
-
-    const isUnlocked =
-        unlocked.includes(index);
-
-
-    const previousComplete =
-        index === 0 ||
-        unlocked.includes(index - 1);
-
-
-    const card =
-        document.createElement("div");
-
-
-    card.className =
-        "act " +
-        (isUnlocked ? "unlocked" : "locked");
-
-
-    card.innerHTML = `
-
-        <div class="act-number">
-            ACT ${String(index + 1).padStart(2, "0")}
-        </div>
-
-        <div class="lock">
-            ${isUnlocked ? "🔓" : "🔒"}
-        </div>
-
-        <h3>
-            ${act.title}
-        </h3>
-
+    description: `
         <p>
-            ${act.description}
+            The theater doors are locked.
         </p>
 
-        <button>
-            ${isUnlocked ? "READ MESSAGE" : "INVESTIGATE"}
-        </button>
+        <p>
+            The actors aren't on stage.
+        </p>
 
-    `;
-
-
-    card
-        .querySelector("button")
-        .addEventListener(
-            "click",
-            () => openAct(index)
-        );
-
-
-    grid.appendChild(card);
-
-});
-
-
-updateProgress();
+        <div
 ```
-
-}
-
-/* =========================================================
-OPEN ACT
-========================================================= */
-
-function openAct(index) {
-
-```
-const isUnlocked =
-    unlocked.includes(index);
-
-
-if (isUnlocked) {
-
-    showLetter(index);
-
-    return;
-
-}
-
-
-const previousComplete =
-    index === 0 ||
-    unlocked.includes(index - 1);
-
-
-if (!previousComplete) {
-
-    alert(
-        "🔒 TIMELINE LOCKED\n\n" +
-        "You must recover the previous message first."
-    );
-
-    return;
-
-}
-
-
-showPuzzle(index);
-```
-
-}
-
-/* =========================================================
-PUZZLES
-========================================================= */
-
-function showPuzzle(index) {
-
-```
-const act =
-    acts[index];
-
-
-let clue = "";
-
-
-switch(index) {
-
-    case 0:
-
-        clue = `
-            <p>
-                An old theater program has been left
-                on the stage.
-            </p>
-
-            <div class="puzzle">
-
-                <p><b>T</b>he house lights fade into darkness.</p>
-                <p><b>I</b>nside the theater, nobody speaks.</p>
-                <p><b>M</b>ysterious footsteps echo backstage.</p>
-                <p><b>E</b>very clock has stopped.</p>
-
-            </div>
-
-            <p>
-                Loki wouldn't make it THAT obvious...
-                would he?
-            </p>
-        `;
-
-        break;
-
-
-    case 1:
-
-        clue = `
-            <p>
-                The radar screen is showing strange activity.
-            </p>
-
-            <div class="puzzle">
-
-                <p>
-                    🟢 Weak storm
-                </p>
-
-                <p>
-                    🟡 Strong storm
-                </p>
-
-                <p>
-                    🔴 Tornadic storm
-                </p>
-
-                <br>
-
-                <p>
-                    The storm symbols appear in this order:
-                </p>
-
-                <h2>
-                    🟡 → 🔴 → 🟢
-                </h2>
-
-                <p>
-                    Their values are:
-                </p>
-
-                <p>
-                    🟢 = 2
-                    <br>
-                    🟡 = 7
-                    <br>
-                    🔴 = 4
-                </p>
-
-                <p>
-                    Enter the resulting code.
-                </p>
-
-            </div>
-        `;
-
-        break;
-
-
-    case 2:
-
-        clue = `
-            <p>
-                A radio transmission has been intercepted.
-            </p>
-
-            <div class="puzzle">
-
-                <p>
-                    📻 "Rotation confirmed."
-                </p>
-
-                <p>
-                    📻 "Storm strengthening."
-                </p>
-
-                <p>
-                    📻 "Transmission continuing."
-                </p>
-
-                <p>
-                    📻 "Radio contact required."
-                </p>
-
-                <br>
-
-                <p>
-                    What device is being used?
-                </p>
-
-            </div>
-        `;
-
-        break;
-
-
-    default:
-
-        clue = `
-            <p>
-                Loki has hidden this puzzle deeper
-                inside the timeline.
-            </p>
-
-            <p>
-                <i>
-                    This puzzle is still under construction.
-                </i>
-            </p>
-        `;
-
-}
-
-
-const answer =
-    promptPuzzle(
-        index,
-        clue
-    );
-```
-
-}
-
-/* =========================================================
-PUZZLE INPUT
-========================================================= */
-
-function promptPuzzle(index, clue) {
-
-```
-const answer =
-    prompt(
-        "ACT " +
-        (index + 1) +
-        "\n\n" +
-        "Solve the puzzle and enter the answer:"
-    );
-
-
-if (answer === null) {
-
-    return;
-
-}
-
-
-const cleaned =
-    answer
-        .trim()
-        .toUpperCase();
-
-
-if (
-    cleaned ===
-    acts[index].password
-) {
-
-    unlockAct(index);
-
-}
-
-else {
-
-    alert(
-        "❌ INCORRECT\n\n" +
-        "The timeline rejects your answer."
-    );
-
-}
-```
-
-}
-
-/* =========================================================
-UNLOCK
-========================================================= */
-
-function unlockAct(index) {
-
-```
-if (
-    !unlocked.includes(index)
-) {
-
-    unlocked.push(index);
-
-}
-
-
-localStorage.setItem(
-    "cyberwallProgress",
-    JSON.stringify(unlocked)
-);
-
-
-buildActs();
-
-
-showLetter(index);
-```
-
-}
-
-/* =========================================================
-SHOW LETTER
-========================================================= */
-
-function showLetter(index) {
-
-```
-const letter =
-    letters[index];
-
-
-const panel =
-    document.getElementById(
-        "letterPanel"
-    );
-
-
-const content =
-    document.getElementById(
-        "letterContent"
-    );
-
-
-content.innerHTML = `
-
-    <div class="letter-header">
-
-        <div class="case-header">
-            MESSAGE RECOVERED
-        </div>
-
-        <h2>
-            💌 ${escapeHTML(letter.name)}
-        </h2>
-
-        <div class="letter-role">
-            ${escapeHTML(letter.role)}
-        </div>
-
-    </div>
-
-
-    <div class="letter-body">
-
-        ${escapeHTML(letter.body)}
-
-    </div>
-
-
-    <div class="signature">
-
-        ${escapeHTML(letter.signoff)}
-
-    </div>
-
-`;
-
-
-panel.classList.remove(
-    "hidden"
-);
-
-
-panel.scrollIntoView({
-    behavior: "smooth"
-});
-
-
-updateProgress();
-```
-
-}
-
-/* =========================================================
-PROGRESS
-========================================================= */
-
-function updateProgress() {
-
-```
-const amount =
-    unlocked.length;
-
-
-const percentage =
-    (amount / 15) * 100;
-
-
-document
-    .getElementById(
-        "progressBar"
-    )
-    .style.width =
-    percentage + "%";
-
-
-document
-    .getElementById(
-        "progressText"
-    )
-    .textContent =
-    amount +
-    " / 15 MESSAGES RECOVERED";
-
-
-if (
-    amount === 15
-) {
-
-    document
-        .getElementById(
-            "finalMessage"
-        )
-        .classList.remove(
-            "hidden"
-        );
-
-}
-```
-
-}
-
-/* =========================================================
-SECURITY / DISPLAY HELPER
-========================================================= */
-
-function escapeHTML(text) {
-
-```
-return text
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-```
-
-}
-
-/* =========================================================
-START
-========================================================= */
-
-buildActs();
-updateProgress();
