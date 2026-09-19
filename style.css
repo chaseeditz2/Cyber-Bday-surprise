@@ -602,3 +602,56 @@ h1 {
 ```
 
 }
+.puzzle-content {
+line-height: 1.8;
+}
+
+.puzzle-box {
+margin: 25px 0;
+padding: 22px;
+
+```
+background: #030706;
+
+border: 1px solid #405b4c;
+
+box-shadow:
+    inset 0 0 25px rgba(0, 0, 0, .7);
+```
+
+}
+
+.puzzle-box p {
+margin: 12px 0;
+}
+
+.puzzle-box strong {
+color: #39ff88;
+}
+
+.puzzle-box h2 {
+text-align: center;
+color: #39ff88;
+letter-spacing: 4px;
+}
+
+.puzzle-box hr {
+border: 0;
+border-top: 1px solid #294536;
+margin: 20px 0;
+}
+
+.hint-text {
+color: #9c8bc9;
+font-style: italic;
+}
+
+.success {
+color: #6dffab;
+font-family: monospace;
+}
+
+.error {
+color: #ff7777;
+font-family: monospace;
+}
